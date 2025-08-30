@@ -55,6 +55,9 @@ class NeodugCommentbox extends HTMLElement {
 
     // ASYNC 
     async fetchComments() {try{
+        this.classList.add('ndcb_loading')
+        this.classList.remove('ndcb_fetchError')
+
         const url = `${NeodugCommentbox.API_URL}/api/comment`
         const res = await fetch(url)
         if (!res.ok) {
@@ -68,10 +71,14 @@ class NeodugCommentbox extends HTMLElement {
     } catch (error) {
         NeodugCommentbox.error(error)
         this.state.fetchError = error?.message || "Something went wrong"
+        this.classList.add('ndcb_fetchError')
+    } finally {
+        this.classList.remove('ndcb_loading')
     }}
 
     async handleAddComment(e) {try{
         e.preventDefault()
+        this.classList.remove('ndcb_addCommentError')
         const formData = Object.fromEntries(new FormData(e.currentTarget))
         const url = `${NeodugCommentbox.API_URL}/api/comment`
         const options = { method: "POST", body: JSON.stringify(formData) }
@@ -87,6 +94,7 @@ class NeodugCommentbox extends HTMLElement {
     } catch (error) {
         NeodugCommentbox.error(error)
         this.state.addCommentError = error?.message || "Something went wrong"
+        this.classList.add('ndcb_addCommentError')
     }}
 
     // DERIVED
