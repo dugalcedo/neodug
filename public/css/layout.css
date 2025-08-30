@@ -1,0 +1,14 @@
+html, body {
+    height: 100dvh;
+    overflow-y: hidden;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex-grow: 1;
+    overflow-y: auto;
+}
