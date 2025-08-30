@@ -41,3 +41,6 @@ async function start() {
         `)
     })
 }
+
+// Helps  vercel?
+export default app
